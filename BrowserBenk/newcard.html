@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Add new card to deck</title>
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="cards.css">
+		<script src="language.js"></script>
+	</head>
+	<body>
+		<div class="container-md">
+			<!-- add padding on first row -->
+			<div class="row pt-5">			
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+					<!-- insert title card -->
+					<div class="card border-0" id="cardtitle">
+					  <div class="card-body">
+					    <h1 class="card-title">Add Card to Deck</h1>
+					    <a href="deck.html" class="card-link">View Deck</a>
+					    <a href="test.html" class="card-link">Start Revision</a>
+					  </div>
+					</div>
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+			<!-- start form inputs -->
+			<div class="row form-group pb-2">
+				<div class="col-md-2 text-right mt-2"><label for="jp">Input:</label></div>
+				<div class="col-md-8 input-group">
+					<input type="text" class="form-control" id="jp" name="japanese" placeholder="Japanese text..">
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+			<div class="row form-group pb-2">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+					<input type="button" class="btn btn-warning" value="Auto-fill" id="autofill">
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+			<div class="row form-group pb-2">
+				<div class="col-md-2 text-right mt-2"><label for="jp">Audio:</label></div>
+				<div class="col-md-8 input-group">
+					<div class="input-group-prepend">
+						<button type="button" class="btn" id="audioText-but" disabled><i class="fas fa-volume-up text-muted" id="audioText-speaker"></i></button>
+					</div>
+					<input type="text" class="form-control" id="audioText" name="audioText" placeholder="Text-to-speech" disabled>
+					<div class="container-md" id="oggString"></div>
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+			<div class="row form-group pb-2">
+				<div class="col-md-2 text-right mt-2"><label for="read">Transcription:</label></div>
+				<div class="col-md-8 input-group">
+					<input type="text" class="form-control" id="read" name="read" placeholder="Pronounciation.." disabled>
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+			<div class="row form-group pb-2">
+				<div class="col-md-2 text-right mt-2"><label for="bunsetsu">Words:</label></div>
+				<div class="col-md-8 input-group">
+					<input type="text" class="form-control" id="bunsetsu" name="bunsetsu" placeholder="With spacing.." disabled>
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+			<div class="row form-group pb-2">
+				<div class="col-md-2 text-right mt-2"><label for="base">Base Forms:</label></div>
+				<div class="col-md-8 input-group">
+					<input type="text" class="form-control" id="base" name="base" placeholder="Unconjugated verbs and adjectives.." disabled>
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+			<div class="row form-group pb-2">
+				<div class="col-md-2 text-right mt-2"><label for="base">Parts-of-speech:</label></div>
+				<div class="col-md-8 input-group">
+					<input type="text" class="form-control" id="pos" name="pos" placeholder="POS elements for base forms.." disabled>
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+			<div class="row form-group pb-2">
+				<div class="col-md-2 text-right mt-2"><label for="tran">Translation:</label></div>
+				<div class="col-sm-8 input-group">
+					<input type="text" class="form-control" id="tran" name="tran" placeholder="Translated text.." disabled>
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+			<div class="row form-group pb-2">
+				<div class="col-sm-2"></div>
+				<div class="col-sm-8 input-group">
+					<input type="button" class="btn btn-primary" value="Add this card" id="validatecard">
+				</div>
+				<div class="col-md-2"></div>
+			</div>			
+		</div>
+		<div class="container-md" id="output"></div>
+	</body>
+</html>

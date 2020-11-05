@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>View deck</title>
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="cards.css">
+		<script src="deck.js"></script>
+		<script src="language.js"></script>
+	</head>
+	<body>
+		<div class="container-md">
+			<!-- add padding on first row -->
+			<div class="row pt-5" id="rowheader">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+					<!-- insert title card -->
+					<div class="card border-0" id="cardtitle">
+					  <div class="card-body">
+					    <h1 class="card-title">Current Deck</h1>
+					    <a href="newcard.html" class="card-link">Add Card</a>
+					    <a href="test.html" class="card-link">Start Revision</a>
+					  </div>
+					</div>
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+			<!-- start deck row -->
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-8" id="deckdisplay">
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+		</div>
+		<!-- container for output messages -->
+		<div class="container" id="output"></div>
+	</body>
+</html>
