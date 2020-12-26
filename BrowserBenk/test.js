@@ -97,7 +97,7 @@ function displayTest(cards, order, types, iter) {
             // console.log("set actions test6");
             break;
         default:
-            cardBodyDiv.innerText("No test: thisType is " + thisType);
+            cardBodyDiv.innerText = "No test: thisType is " + thisType;
     }
 }
 
@@ -510,9 +510,9 @@ function setOnclick(answersIds, cards, order, types, iter, qa) {
     const thisCard = cards[thisCardInd];
     const thisType = types[iter];
     //establish parameter change on correct/wrong answers
-    const meanCorrect = thisCard.mean + 0.05 //increase mean by flat amount if correct
+    const meanCorrect = thisCard.mean + 0.2 //increase mean by flat amount if correct
     const meanWrong = Math.max(0,Math.floor(thisCard.mean-1)); //use floor of previous mean if wrong
-    const sdCorrect = thisCard.sd + 0.01 //increase(multiply) sd by size factor if correct
+    const sdCorrect = thisCard.sd * 1.4 //increase(multiply) sd by size factor if correct
     const sdWrong = thisCard.sd / 2 //decrease(divide) sd by size factor if wrong
     function answeredRight(correct) {
         if (correct && thisType <= Math.floor(thisCard.mean)) {
@@ -521,7 +521,7 @@ function setOnclick(answersIds, cards, order, types, iter, qa) {
             thisCard.sd = sdCorrect;
         } else if (correct && thisType > Math.floor(thisCard.mean)) {
             //correct answer, test level > the card level
-            thisCard.mean = meanCorrect + 0.01;
+            thisCard.mean = meanCorrect + 0.1;
             //keep sd the same
         } else if (!correct && thisType > Math.floor(thisCard.mean)) {
             //wrong answer, test level > the card level
@@ -875,28 +875,33 @@ function initiateTest(cardList) {
     var cardFilter = new Array();
     for (let i = 0; i < cardsMean.length; i++) {
         var rand = normalRandomScaled(cardsMean[i],cardsSD[i]); //decide test type for card i
+        var pushed = false
         if (rand < 0) {
             //test type can't be less than 0
             // rand = Math.floor(Math.abs(rand));
             rand = 0;
         } else if (rand > 6) {
             //test type can't be greater than 6 but there comes a time when this shouldn't be tested anymore
-            if (rand < 35) {
+            if (rand < 27) {
                 //can review again
                 rand = 6;
             } else {
                 cardFilter.push(i); //flag card as no-review
+                pushed = true
             }
         } else {
             rand = Math.floor(rand);
         }
-        testType.push(rand); //save testType
-        rand = normalRandomScaled(cardsSD[i], 0.3); //decide test order for card i
-        if (rand > 10) {
+        var rand2 = normalRandomScaled(cardsSD[i], 0.3); //decide test order for card i
+        if (rand2 > 5) {
             //larger than that means that the test is mostly correct ie learned
             cardFilter.push(i); //flag card as no-review
+            pushed = true
         }
-        cardOrder.push(cardsMean[i]+rand);
+        if (!pushed) {
+            testType.push(rand); //save testType
+            cardOrder.push(cardsMean[i]+rand2);    
+        }
     }
     //convert cardOrder to array indexes for order ([1] = 30 means card 30 will be the 2nd card tested)
     var cardOrderSelect = rankNums(cardOrder);

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Management</title>
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		<script src="clean.js"></script>
+	</head>
+	<body>
+		<div class="container-md">
+			<!-- add padding on first row -->
+			<div class="row pt-5">			
+				<div class="col-sm-2"></div>
+				<div class="col-sm-8">
+					<!-- insert title card -->
+					<div class="card border-0" id="cardtitle">
+					  <div class="card-body">
+					    <h1 class="card-title">Management</h1>
+					    <a href="deck.html" class="card-link">View Deck</a>
+					    <a href="test.html" class="card-link">Start Revision</a>
+					  </div>
+					</div>
+				</div>
+				<div class="col-sm-2"></div>
+			</div>
+			<!-- start management options -->
+			<div class="row pb-2">
+                <div class="col-sm-2 text-right">Purge: </div>
+                <div class="col-sm-5"> remove cards that will probably not be reviewed again</div>
+                <div class="col-sm-5"></div>
+            </div>
+            <div class="row form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5 form-inline">Remove cards at level <input type="text" class="form-control mr-sm-1 ml-sm-1 col-2" id="mean" name="mean" placeholder="20"> and higher</div>
+                <div class="col-sm-5"></div>
+            </div>
+            <div class="row form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5 form-inline">and cards at accuracy <input type="text" class="form-control mr-sm-1 ml-sm-1 col-2" id="sd" name="sd" placeholder="50"> and higher</div>
+                <div class="col-sm-5 text-left"><button type="button" class="btn btn-danger" id="purge">Remove forever!</button></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5" id="purge-field"></div>
+                <div class="col-sm-5"></div>
+            </div>
+            <div class="row pb-2">
+				<div class="col-sm-2 text-right">Export: </div>
+				<div class="col-sm-8">download current deck for back-up</div>
+				<div class="col-sm-2"></div>
+            </div>
+            <div class="row form-group">
+				<div class="col-sm-2"></div>
+				<div class="col-sm-8">
+                    <button type="button" class="btn btn-primary" id="export">Export as JSON file</button>
+				</div>
+				<div class="col-sm-2"></div>
+            </div>
+            <div class="row pb-2">
+				<div class="col-sm-2 text-right">Import: </div>
+				<div class="col-sm-8">overwrite current deck with back-up</div>
+				<div class="col-sm-2"></div>
+            </div>
+            <div class="row form-group">
+				<div class="col-sm-2"></div>
+				<div class="col-sm-5 custom-file">
+                    <input type="file" class="custom-file-input" id="import" aria-describedby="import">
+                    <label class="custom-file-label" for="import">Choose back-up file</label>
+				</div>
+				<div class="col-sm-5"><button type="button" class="btn btn-danger" id="ldjson">Overwrite deck!</button></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5" id="import-field"></div>
+                <div class="col-sm-5"></div>
+            </div>
+        </div>
+    </body>
+</html>
