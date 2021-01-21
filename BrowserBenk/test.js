@@ -875,10 +875,10 @@ function initiateTest(cardList) {
     var cardFilter = new Array();
     for (let i = 0; i < cardsMean.length; i++) {
         var rand = normalRandomScaled(cardsMean[i],cardsSD[i]); //decide test type for card i
+        rand = Math.abs(rand);
         var pushed = false
         if (rand < 0) {
             //test type can't be less than 0
-            // rand = Math.floor(Math.abs(rand));
             rand = 0;
         } else if (rand > 6) {
             //test type can't be greater than 6 but there comes a time when this shouldn't be tested anymore
@@ -893,7 +893,7 @@ function initiateTest(cardList) {
             rand = Math.floor(rand);
         }
         var rand2 = normalRandomScaled(cardsSD[i], 0.3); //decide test order for card i
-        if (rand2 > 5) {
+        if (rand2 > 10) {
             //larger than that means that the test is mostly correct ie learned
             cardFilter.push(i); //flag card as no-review
             pushed = true
@@ -903,22 +903,16 @@ function initiateTest(cardList) {
             cardOrder.push(cardsMean[i]+rand2);    
         }
     }
-    //convert cardOrder to array indexes for order ([1] = 30 means card 30 will be the 2nd card tested)
+    //convert cardOrder to array indexes for order (if [1] = 30 then card 30 will be the 2nd card tested)
     var cardOrderSelect = rankNums(cardOrder);
     cardOrderSelect = cardOrderSelect.map(function(value) {
         return value - 1;
     }); //array indexes start from 0
     //reorder testType as well
     var testTypeSelect = cardOrderSelect.map(i => testType[i]);
-    // const cardListIndex = Array.from(Array(cardOrder.length).keys());
-    // var cardOrderSelect = cardOrderRank.map(i => cardListIndex[i]);
     //apply cardFilter to testType and cardOrder
     testTypeSelect = testTypeSelect.filter((value, index) => !cardFilter.includes(index));
     cardOrderSelect = cardOrderSelect.filter((value, index) => !cardFilter.includes(index));
-    // const cardOrderSelect = Array.from(Array(10).keys());
-    // const testTypeSelect = new Array(cardOrderSelect.length).fill(2);
-    // const cardOrderSelect = [9,8,7,6,5,4,3,2,1,0];
-    // const cardOrderSelect = [0,2,4,6,8,10,12,14,16,18];
     // console.log(cardOrder);
     // console.log(cardOrderSelect);
     // console.log(testType);
