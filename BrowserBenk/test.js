@@ -512,7 +512,7 @@ function setOnclick(answersIds, cards, order, types, iter, qa) {
     //establish parameter change on correct/wrong answers
     const meanCorrect = thisCard.mean + 0.2 //increase mean by flat amount if correct
     const meanWrong = Math.max(0,Math.floor(thisCard.mean-1)); //use floor of previous mean if wrong
-    const sdCorrect = thisCard.sd * 1.4 //increase(multiply) sd by size factor if correct
+    const sdCorrect = thisCard.sd * 1.2 //increase(multiply) sd by size factor if correct
     const sdWrong = thisCard.sd / 2 //decrease(divide) sd by size factor if wrong
     function answeredRight(correct) {
         if (correct && thisType <= Math.floor(thisCard.mean)) {
@@ -869,10 +869,10 @@ function initiateTest(cardList) {
             cardList[ind].sd = 0.01;
         }
     });
-    //set test type and card order; calculated by mean and sd
+    //set test type and card order by cardList; calculated by mean and sd
     var testType = new Array();
     var cardOrder = new Array();
-    var cardFilter = new Array();
+    var cardFilter = new Array(); //the index of cardList of card to leave out
     for (let i = 0; i < cardsMean.length; i++) {
         var rand = normalRandomScaled(cardsMean[i],cardsSD[i]); //decide test type for card i
         rand = Math.abs(rand);
@@ -893,24 +893,24 @@ function initiateTest(cardList) {
             rand = Math.floor(rand);
         }
         var rand2 = normalRandomScaled(cardsSD[i], 0.3); //decide test order for card i
-        if (rand2 > 10) {
+        if (rand2 > 30 && rand > 6 && !pushed) {
             //larger than that means that the test is mostly correct ie learned
             cardFilter.push(i); //flag card as no-review
-            pushed = true
+            //pushed = true
         }
-        if (!pushed) {
-            testType.push(rand); //save testType
-            cardOrder.push(cardsMean[i]+rand2);    
-        }
+        //save values in testType and cardOrder
+        testType.push(rand); //save testType
+        cardOrder.push(cardsMean[i]+rand2);
     }
     //convert cardOrder to array indexes for order (if [1] = 30 then card 30 will be the 2nd card tested)
-    var cardOrderSelect = rankNums(cardOrder);
+    var cardOrderSelect = rankNums(cardOrder); //converts cardOrder (floats) into ranks (ints)
     cardOrderSelect = cardOrderSelect.map(function(value) {
         return value - 1;
-    }); //array indexes start from 0
-    //reorder testType as well
-    var testTypeSelect = cardOrderSelect.map(i => testType[i]);
-    //apply cardFilter to testType and cardOrder
+    }); //convert ranks into array indexes (starts from 0)
+    //reorder testType by cardOrder as well
+    // var testTypeSelect = cardOrderSelect.map(i => testType[i]); //reorders testType by cardOrder
+    //apply cardFilter to testType and cardOrder; remove value in testType if its index is in cardFilter
+    var testTypeSelect = testType;
     testTypeSelect = testTypeSelect.filter((value, index) => !cardFilter.includes(index));
     cardOrderSelect = cardOrderSelect.filter((value, index) => !cardFilter.includes(index));
     // console.log(cardOrder);
@@ -919,6 +919,7 @@ function initiateTest(cardList) {
     // console.log(testTypeSelect);
     // console.log(cardFilter);
     // console.log(cardList);
+    // cardList = all cards, cardOrderSelect = in order the card indexes (in cardList) to test, testTypeSelect = in order (matches cardOrderSelect) the test for matching card
     displayTest(cardList, cardOrderSelect, testTypeSelect, 0); //start with first test
 }
 
